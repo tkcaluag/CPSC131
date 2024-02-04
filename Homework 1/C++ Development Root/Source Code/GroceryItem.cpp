@@ -37,6 +37,8 @@ namespace    // unnamed, anonymous namespace
       ///         do this instead:
       ///           return a < b;
 
+      return std::abs(lhs - rhs) <= EPSILON;
+
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
 }    // unnamed, anonymous namespace
@@ -52,7 +54,7 @@ namespace    // unnamed, anonymous namespace
 *******************************************************************************/
 
 // Default and Conversion Constructor
-GroceryItem::GroceryItem( std::string productName, std::string brandName, std::string upcCode, double price )
+GroceryItem::GroceryItem( std::string productName, std::string brandName, std::string upcCode, double price ) : _productName( std::move( productName ) ), _brandName( std::move( brandName ) ), _upcCode( std::move( upcCode ) ), _price( price ) {}
 ///////////////////////// TO-DO (2) //////////////////////////////
   /// Copying the parameters into the object's attributes (member variables) "works" but is not correct.  Be sure to move the parameters into the object's attributes
 
@@ -62,7 +64,7 @@ GroceryItem::GroceryItem( std::string productName, std::string brandName, std::s
 
 
 // Copy constructor
-GroceryItem::GroceryItem( GroceryItem const & other )
+GroceryItem::GroceryItem( GroceryItem const & other ) : _productName(other.productName()), _brandName(other.brandName()), _upcCode(other.upcCode()), _price(other.price())
 ///////////////////////// TO-DO (3) //////////////////////////////
 
 /////////////////////// END-TO-DO (3) ////////////////////////////
