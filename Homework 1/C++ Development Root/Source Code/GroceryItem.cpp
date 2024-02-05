@@ -74,7 +74,7 @@ GroceryItem::GroceryItem( GroceryItem const & other ) : _productName(other.produ
 
 
 // Move constructor
-GroceryItem::GroceryItem( GroceryItem && other ) noexcept
+GroceryItem::GroceryItem( GroceryItem && other ) noexcept : _productName{ std::move( other._productName ) }, _brandName{ std::move( other._brandName ) }, _upcCode{std::move (other._upcCode)}, _price{ std::move(other._price) }
 ///////////////////////// TO-DO (4) //////////////////////////////
 
 /////////////////////// END-TO-DO (4) ////////////////////////////
@@ -95,7 +95,7 @@ GroceryItem & GroceryItem::operator=( GroceryItem const & rhs ) &
 
 
 // Move Assignment Operator
-GroceryItem & GroceryItem::operator=( GroceryItem && rhs ) & noexcept
+GroceryItem & GroceryItem::operator=( GroceryItem && rhs ) & noexcept {}
 ///////////////////////// TO-DO (6) //////////////////////////////
 
 /////////////////////// END-TO-DO (6) ////////////////////////////
@@ -122,7 +122,7 @@ GroceryItem & GroceryItem::operator=( GroceryItem && rhs ) & noexcept
 std::string const & GroceryItem::upcCode() const &
 {
   ///////////////////////// TO-DO (8) //////////////////////////////
-
+  return _upcCode;
   /////////////////////// END-TO-DO (8) ////////////////////////////
 }
 
@@ -133,7 +133,7 @@ std::string const & GroceryItem::upcCode() const &
 std::string const & GroceryItem::brandName() const &
 {
   ///////////////////////// TO-DO (9) //////////////////////////////
-
+  return _brandName;
   /////////////////////// END-TO-DO (9) ////////////////////////////
 }
 
