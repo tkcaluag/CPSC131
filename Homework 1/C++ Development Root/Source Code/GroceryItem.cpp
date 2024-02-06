@@ -64,7 +64,7 @@ GroceryItem::GroceryItem( std::string productName, std::string brandName, std::s
 
 
 // Copy constructor
-GroceryItem::GroceryItem( GroceryItem const & other ) : _productName(other.productName()), _brandName(other.brandName()), _upcCode(other.upcCode()), _price(other.price())
+GroceryItem::GroceryItem( GroceryItem const & other ) : _productName(other._productName), _brandName(other._brandName), _upcCode(other._upcCode), _price(other._price)
 ///////////////////////// TO-DO (3) //////////////////////////////
 
 /////////////////////// END-TO-DO (3) ////////////////////////////
@@ -87,7 +87,14 @@ GroceryItem::GroceryItem( GroceryItem && other ) noexcept : _productName{ std::m
 GroceryItem & GroceryItem::operator=( GroceryItem const & rhs ) &
 {
   ///////////////////////// TO-DO (5) //////////////////////////////
+  if(this != &rhs){
+    _productName = rhs._productName;
+    _brandName   = rhs._brandName;
+    _upcCode     = rhs._upcCode;
+    _price       = rhs._price;
+  }
 
+  return *this;
   /////////////////////// END-TO-DO (5) ////////////////////////////
 }
 
@@ -95,16 +102,23 @@ GroceryItem & GroceryItem::operator=( GroceryItem const & rhs ) &
 
 
 // Move Assignment Operator
-GroceryItem & GroceryItem::operator=( GroceryItem && rhs ) & noexcept {}
+GroceryItem & GroceryItem::operator=( GroceryItem && rhs ) & noexcept
+{
 ///////////////////////// TO-DO (6) //////////////////////////////
-
+  if(this != &rhs){
+    _productName = std::move( rhs._productName );
+    _brandName   = std::move( rhs._brandName );
+    _upcCode     = std::move( rhs._upcCode );
+    _price       = std::move( rhs._price );
+  }
 /////////////////////// END-TO-DO (6) ////////////////////////////
+}
 
 
 
 // Destructor
 ///////////////////////// TO-DO (7) //////////////////////////////
-
+GroceryItem::~GroceryItem() {}
 /////////////////////// END-TO-DO (7) ////////////////////////////
 
 
@@ -141,16 +155,22 @@ std::string const & GroceryItem::brandName() const &
 
 
 // productName() const    (L-value objects)
+std::string const & GroceryItem::productName() const &
+{
 ///////////////////////// TO-DO (10) //////////////////////////////
-
+return _productName;
 /////////////////////// END-TO-DO (10) ////////////////////////////
+}
 
 
 
 // price() const    (L-value and, because there is no R-value overload, R-value objects)
+double GroceryItem::price() const &
+{
 ///////////////////////// TO-DO (11) //////////////////////////////
-
+return _price;
 /////////////////////// END-TO-DO (11) ////////////////////////////
+}
 
 
 
@@ -159,7 +179,7 @@ std::string const & GroceryItem::brandName() const &
 std::string GroceryItem::upcCode() &&
 {
   ///////////////////////// TO-DO (12) //////////////////////////////
-
+  return std::move( _upcCode );
   /////////////////////// END-TO-DO (12) ////////////////////////////
 }
 
@@ -167,18 +187,22 @@ std::string GroceryItem::upcCode() &&
 
 
 // brandName()    (R-value objects)
+std::string GroceryItem::brandName() &&
+{
 ///////////////////////// TO-DO (13) //////////////////////////////
-
+return std::move( _brandName );
 /////////////////////// END-TO-DO (13) ////////////////////////////
-
+}
 
 
 
 // productName()    (R-value objects)
+std::string GroceryItem::productName() &&
+{
 ///////////////////////// TO-DO (14) //////////////////////////////
-
+return std::move( _productName );
 /////////////////////// END-TO-DO (14) ////////////////////////////
-
+}
 
 
 
@@ -195,7 +219,7 @@ GroceryItem & GroceryItem::upcCode( std::string newUpcCode ) &
 {
   ///////////////////////// TO-DO (15) //////////////////////////////
     /// Copy assignment "works" but is not correct.  Be sure to move newUpcCode into _upcCode
-
+  _upcCode = std::move( newUpcCode );
   /////////////////////// END-TO-DO (15) ////////////////////////////
 }
 
@@ -203,17 +227,20 @@ GroceryItem & GroceryItem::upcCode( std::string newUpcCode ) &
 
 
 // brandName(...)
+GroceryItem & GroceryItem::brandName( std::string newBrandName ) &
+{
 ///////////////////////// TO-DO (16) //////////////////////////////
-
+_brandName = std::move( newBrandName );
 /////////////////////// END-TO-DO (16) ////////////////////////////
-
+}
 
 
 
 // productName(...)
 GroceryItem & GroceryItem::productName( std::string newProductName ) &
+{
   ///////////////////////// TO-DO (17) //////////////////////////////
-
+  _productName = std::move( newProductName );
   /////////////////////// END-TO-DO (17) ////////////////////////////
 }
 
@@ -221,10 +248,12 @@ GroceryItem & GroceryItem::productName( std::string newProductName ) &
 
 
 // price(...)
+GroceryItem & GroceryItem::price(double newPrice) &
+{
 ///////////////////////// TO-DO (18) //////////////////////////////
-
+_price = newPrice;
 /////////////////////// END-TO-DO (18) ////////////////////////////
-
+}
 
 
 
