@@ -310,6 +310,8 @@ bool GroceryItem::operator==( const GroceryItem & rhs ) const noexcept
 
   ///////////////////////// TO-DO (20) //////////////////////////////
 
+  return _productName == ( std::move( rhs._productName ) ) && _upcCode == ( std::move( rhs._upcCode ) ) && _price == ( std::move( rhs._price ) ) && _brandName == ( std::move( rhs._brandName ) );
+
   /////////////////////// END-TO-DO (20) ////////////////////////////
 }
 
@@ -346,6 +348,9 @@ std::istream & operator>>( std::istream & stream, GroceryItem & groceryItem )
     ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
     ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
 
+  stream >> std::quoted( groceryItem._upcCode ) >> std::quoted( groceryItem._brandName ) >> std::quoted( groceryItem._productName ) >> groceryItem._price;
+  return stream;
+
   /////////////////////// END-TO-DO (21) ////////////////////////////
 }
 
@@ -361,6 +366,8 @@ std::ostream & operator<<( std::ostream & stream, const GroceryItem & groceryIte
     /// Hint:  Brand and product names may have quotes, which need to escaped when printing.  Use std::quoted to read and write quoted strings.  See
     ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
     ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
+
+  return stream << "{" << std::quoted( groceryItem._upcCode ) << "," << std::quoted( groceryItem._brandName ) << "," << std::quoted( groceryItem._productName ) << "," << groceryItem._price << '}';
 
   /////////////////////// END-TO-DO (22) ////////////////////////////
 }
