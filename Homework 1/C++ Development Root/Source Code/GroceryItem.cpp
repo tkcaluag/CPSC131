@@ -301,7 +301,16 @@ std::weak_ordering GroceryItem::operator<=>( const GroceryItem & rhs ) const noe
   // (sorted) by UPC code, product name, brand name, then price.
 
   ///////////////////////// TO-DO (19) //////////////////////////////
-  return _productName <=> ( std::move( rhs._productName ) );
+
+  if((_productName <=> rhs._productName) != 0){
+    return _productName <=> rhs._productName;
+  } else if ((_upcCode <=> rhs._upcCode) != 0){
+    return _upcCode <=> rhs._upcCode;
+  } else if ((_brandName <=> rhs._brandName) != 0){
+    return _brandName <=> rhs._brandName;
+  } else if (!floating_point_is_equal(_price, rhs._price)){
+    return std::compare_weak_order_fallback( _price, rhs._price );
+  }
   /////////////////////// END-TO-DO (19) ////////////////////////////
 }
 
@@ -316,7 +325,7 @@ bool GroceryItem::operator==( const GroceryItem & rhs ) const noexcept
 
   ///////////////////////// TO-DO (20) //////////////////////////////
 
-  return _productName == ( std::move( rhs._productName ) ) && _upcCode == ( std::move( rhs._upcCode ) ) && _price == ( std::move( rhs._price ) ) && _brandName == ( std::move( rhs._brandName ) );
+  return _productName == ( std::move( rhs._productName ) ) && _upcCode == ( std::move( rhs._upcCode ) ) && floating_point_is_equal( _price, rhs._price ) && _brandName == ( std::move( rhs._brandName ) );
 
   /////////////////////// END-TO-DO (20) ////////////////////////////
 }
