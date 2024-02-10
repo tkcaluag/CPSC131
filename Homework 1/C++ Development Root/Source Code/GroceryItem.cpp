@@ -119,6 +119,7 @@ GroceryItem & GroceryItem::operator=( GroceryItem && rhs ) & noexcept
 
 
 // Destructor
+GroceryItem::~GroceryItem() noexcept {}
 ///////////////////////// TO-DO (7) //////////////////////////////
 
 /////////////////////// END-TO-DO (7) ////////////////////////////
@@ -311,6 +312,8 @@ std::weak_ordering GroceryItem::operator<=>( const GroceryItem & rhs ) const noe
   } else if (!floating_point_is_equal(_price, rhs._price)){
     return std::compare_weak_order_fallback( _price, rhs._price );
   }
+
+  return _productName <=> rhs._productName;
   /////////////////////// END-TO-DO (19) ////////////////////////////
 }
 
@@ -363,7 +366,9 @@ std::istream & operator>>( std::istream & stream, GroceryItem & groceryItem )
     ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
     ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
 
-  stream >> std::quoted( groceryItem._upcCode, delimiter ) >> std::quoted( groceryItem._brandName, delimiter ) >> std::quoted( groceryItem._productName, delimiter ) >> groceryItem._price;
+
+  std::cout << "Enter UPC, Product Brand, Product Name, and Price" << std::endl;
+  stream >> std::quoted( groceryItem._upcCode, delimiter) >> std::quoted( groceryItem._brandName, delimiter) >> std::quoted( groceryItem._productName, delimiter) >> groceryItem._price;
   return stream;
 
   /////////////////////// END-TO-DO (21) ////////////////////////////
@@ -375,6 +380,7 @@ std::istream & operator>>( std::istream & stream, GroceryItem & groceryItem )
 // operator<<(...)
 std::ostream & operator<<( std::ostream & stream, const GroceryItem & groceryItem )
 {
+  char delimiter = '\x{0000}';
   ///////////////////////// TO-DO (22) //////////////////////////////
     /// This function should be symmetrical with operator>> above.  Read what your write, and write what you read
     ///
@@ -382,7 +388,7 @@ std::ostream & operator<<( std::ostream & stream, const GroceryItem & groceryIte
     ///        1) https://en.cppreference.com/w/cpp/io/manip/quoted
     ///        2) https://www.youtube.com/watch?v=Mu-GUZuU31A
 
-  return stream << "{" << std::quoted( groceryItem._upcCode ) << "," << std::quoted( groceryItem._brandName ) << "," << std::quoted( groceryItem._productName ) << "," << groceryItem._price << '}';
+  return stream << "{" << std::quoted( groceryItem._upcCode, delimiter ) << "," << std::quoted( groceryItem._brandName, delimiter ) << "," << std::quoted( groceryItem._productName, delimiter ) << "," << groceryItem._price << '}';
 
   /////////////////////// END-TO-DO (22) ////////////////////////////
 }
