@@ -1,0 +1,14 @@
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+Enter UPC, Product Brand, Product Name, and Price
+{"00072250018548", "Nature's Own", "Nature's Own Butter Buns Hotdog - 8 Ct", 10.79}
+Enter UPC, Product Brand, Product Name, and Price
