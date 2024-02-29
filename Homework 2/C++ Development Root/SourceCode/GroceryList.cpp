@@ -104,6 +104,7 @@ std::size_t GroceryList::size() const
     /// All the containers are the same size, so pick one and return the size of that.  Since the forward_list has to calculate the
     /// size on demand, stay away from using that one.
 
+  std::cout << "size";
   return _gList_vector.size();
 
   /////////////////////// END-TO-DO (1) ////////////////////////////
@@ -137,7 +138,8 @@ std::size_t GroceryList::find( const GroceryItem & groceryItem ) const
     /// be in the same position in all the containers (array, vector, list, and forward_list) so pick just one of those to search.
     /// The STL provides the find() function that is a perfect fit here, but you may also write your own loop.
 
-  for( std::size_t i = 0; i < _gList_array_size;  i++)
+  std::cout << "find";
+  for( std::size_t i = 0; i < _gList_array_size; i++ )
   {
     if( _gList_array.at( i ) == groceryItem )
     {
@@ -194,6 +196,7 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
     /// Remember, you already have a function that tells you if the to-be-inserted grocery item is already in the list, so use it.
     /// Don't implement it again.
 
+    std::cout << "duplicate";
     if(auto index = find(groceryItem); index != _gList_array_size) return;
 
 
@@ -502,9 +505,7 @@ std::weak_ordering GroceryList::operator<=>( GroceryList const & rhs ) const
 
   if( rhs._gList_array_size < _gList_array_size ){
     commonExtent = rhs._gList_array_size;
-  }
-
-  for( std::size_t i = 0; i < commonExtent; ++i ){
+  }  for( std::size_t i = 0; i < commonExtent; ++i ){
     for( std::size_t n = 0; n < commonExtent; ++n ){
       if( auto result = _gList_array[i] <=> rhs._gList_array[n]; result != 0 )
       {
