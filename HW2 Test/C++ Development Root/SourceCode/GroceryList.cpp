@@ -104,7 +104,7 @@ std::size_t GroceryList::size() const
     /// All the containers are the same size, so pick one and return the size of that.  Since the forward_list has to calculate the
     /// size on demand, stay away from using that one.
 
-  return _gList_vector.size();
+  return _gList_array.size();
 
   /////////////////////// END-TO-DO (1) ////////////////////////////
 }
@@ -137,7 +137,7 @@ std::size_t GroceryList::find( const GroceryItem & groceryItem ) const
     /// be in the same position in all the containers (array, vector, list, and forward_list) so pick just one of those to search.
     /// The STL provides the find() function that is a perfect fit here, but you may also write your own loop.
 
-  for( std::size_t i = 0; i < _gList_array_size;  i++)
+  for( std::size_t i = 0; i < _gList_array_size; i++ )
   {
     if( _gList_array.at( i ) == groceryItem )
     {
@@ -194,8 +194,7 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
     /// Remember, you already have a function that tells you if the to-be-inserted grocery item is already in the list, so use it.
     /// Don't implement it again.
 
-    if(auto index = find(groceryItem); index != _gList_array_size) return;
-
+  if( auto index = find( groceryItem ); index != _gList_array_size ) return;
 
   /////////////////////// END-TO-DO (3) ////////////////////////////
 
@@ -223,7 +222,8 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       /// For example:  a[8] = a[7];  a[7] = a[6];  a[6] = a[5];  and so on.
       /// std::shift_* will be helpful, or write your own loop.
 
-    for( auto destination = _gList_array_size - 1; destination != offsetFromTop; --destination){
+    for( auto destination = _gList_array_size - 1; destination != offsetFromTop; --destination )
+    {
       _gList_array[destination] = std::move( _gList_array[destination - 1] );
     }
 
@@ -391,7 +391,7 @@ void GroceryList::remove( std::size_t offsetFromTop )
       /// can write your own loop.
 
     auto position = _gList_sll.begin();
-    position      = std::next( position, offsetFromTop-1 );
+    position      = std::next( position, offsetFromTop - 1 );
 
     _gList_sll.erase_after( position );
 
@@ -412,14 +412,15 @@ void GroceryList::moveToTop( const GroceryItem & groceryItem )
     /// If the grocery item exists, then remove and reinsert it.  Otherwise, do nothing.
     /// Remember, you already have functions to do all this.
 
-    if(find(groceryItem) != _gList_array_size ) {
-      remove( find(groceryItem) );
-      insert( groceryItem, 0 );
-    }
+  if( find( groceryItem ) != _gList_array_size )
+  {
+    remove( find( groceryItem ) );
+    insert( groceryItem, 0 );
+  }
 
-    return;
+  return;
 
-    /////////////////////// END-TO-DO (12) ////////////////////////////
+  /////////////////////// END-TO-DO (12) ////////////////////////////
 }
 
 
@@ -433,14 +434,15 @@ GroceryList & GroceryList::operator+=( const std::initializer_list<GroceryItem> 
     /// containers.  The constructor above gives an example.  Remember to add that grocery item at the bottom of each container
     /// (array, vector, list, and forward_list) of this grocery list, and that you already have a function that does that.
 
-  for( auto item : rhs ){
+  for( auto item : rhs )
+  {
     insert( item, _gList_array_size - 1 );
   }
 
   /////////////////////// END-TO-DO (13) ////////////////////////////
 
   // Verify the internal grocery list state is still consistent amongst the four containers
-  if( !containersAreConsistant() ) throw GroceryList::InvalidInternalState_Ex( make_details( "Container consistency error" ) );
+  if( !containersAreConsistant() )   throw GroceryList::InvalidInternalState_Ex( make_details( "Container consistency error" ) );
   return *this;
 }
 
@@ -456,7 +458,8 @@ GroceryList & GroceryList::operator+=( const GroceryList & rhs )
     /// that grocery item at the bottom of each container (array, vector, list, and forward_list) of this grocery list, and that you
     /// already have a function that does that.
 
-  for( auto i : rhs._gList_vector){
+  for( auto i : rhs._gList_vector )
+  {
     insert( i, _gList_array_size - 1 );
   }
 
@@ -500,12 +503,15 @@ std::weak_ordering GroceryList::operator<=>( GroceryList const & rhs ) const
 
   std::size_t commonExtent = _gList_array_size;
 
-  if( rhs._gList_array_size < _gList_array_size ){
+  if( rhs._gList_array_size < _gList_array_size )
+  {
     commonExtent = rhs._gList_array_size;
   }
 
-  for( std::size_t i = 0; i < commonExtent; ++i ){
-    for( std::size_t n = 0; n < commonExtent; ++n ){
+  for( std::size_t i = 0; i < commonExtent; ++i )
+  {
+    for( std::size_t n = 0; n < commonExtent; ++n )
+    {
       if( auto result = _gList_array[i] <=> rhs._gList_array[n]; result != 0 )
       {
         return result;
@@ -514,8 +520,6 @@ std::weak_ordering GroceryList::operator<=>( GroceryList const & rhs ) const
   }
 
   return _gList_array_size <=> rhs._gList_array_size;
-
-
 
   /////////////////////// END-TO-DO (15) ////////////////////////////
 }
@@ -536,17 +540,19 @@ bool GroceryList::operator==( GroceryList const & rhs ) const
     /// Walk the list looking for grocery items that don't match.  The content of all the grocery lists's containers is the same -
     /// so pick an easy one to walk.
 
-    if (rhs._gList_array_size != _gList_array_size) return false;
+  if( rhs._gList_array_size != _gList_array_size ) return false;
 
-    for( std::size_t i = 0; i < _gList_array_size; i++ ){
-      if( rhs._gList_array[i] != _gList_array[i] ) {
-            return false;
-          }
+  for( std::size_t i = 0; i < _gList_array_size; i++ )
+  {
+    if( rhs._gList_array[i] != _gList_array[i] )
+    {
+      return false;
     }
+  }
 
-    return true;
+  return true;
 
-    /////////////////////// END-TO-DO (16) ////////////////////////////
+  /////////////////////// END-TO-DO (16) ////////////////////////////
 }
 
 
@@ -653,9 +659,9 @@ std::istream & operator>>( std::istream & stream, GroceryList & groceryList )
 
   GroceryItem workingItem;
 
-  if( stream >> std::ws >> workingItem)
+  if( stream >> std::ws >> workingItem )
   {
-    groceryList.insert( workingItem, groceryList._gList_array_size-1 );
+    groceryList.insert( workingItem, groceryList._gList_array_size - 1 );
   }
   else
     stream.setstate( std::ios::failbit );

@@ -98,7 +98,12 @@ int main()
    _size  =  0
 
   ///////////////////////// TO-DO (2) //////////////////////////////
-
+   +---------------+
+   |               |
+   +-> _sentinel <-+
+   _head -> _sentinel
+   _tail -> _sentinel
+   _size  =  0
   /////////////////////// END-TO-DO (2) ////////////////////////////
   #endif
   theList.print();
@@ -110,7 +115,12 @@ int main()
   // Be mindful to how you sketch.  Note the required 6 lines, attribute names, and the arrow syntax
   #if 0
   ///////////////////////// TO-DO (3) //////////////////////////////
-
+   +----------------------+
+   |                      |
+   +-> _sentinel <-> 20 <-+
+   _head -> 20
+   _tail -> 20
+   _size  =  1
   /////////////////////// END-TO-DO (3) ////////////////////////////
   #endif
 
@@ -121,7 +131,12 @@ int main()
   // Be mindful to how you sketch.  Note the required 6 lines, attribute names, and the arrow syntax
   #if 0
   ///////////////////////// TO-DO (4) //////////////////////////////
-
+   +-----------------------------+
+   |                             |
+   +-> _sentinel <-> 10 <-> 20 <-+
+   _head -> 10
+   _tail -> 20
+   _size  =  2
   /////////////////////// END-TO-DO (4) ////////////////////////////
   #endif
 
@@ -132,7 +147,12 @@ int main()
   // Be mindful to how you sketch.  Note the required 6 lines, attribute names, and the arrow syntax
   #if 0
   ///////////////////////// TO-DO (5) //////////////////////////////
-
+   +------------------------------------+
+   |                                    |
+   +-> _sentinel <-> 10 <-> 20 <-> 40 <-+
+   _head -> 10
+   _tail -> 40
+   _size  =  3
   /////////////////////// END-TO-DO (5) ////////////////////////////
   #endif
 
@@ -143,7 +163,12 @@ int main()
   // Be mindful to how you sketch.  Note the required 6 lines, attribute names, and the arrow syntax
   #if 0
   ///////////////////////// TO-DO (6) //////////////////////////////
-
+   +-------------------------------------------+
+   |                                           |
+   +-> _sentinel <-> 10 <-> 30 <-> 20 <-> 40 <-+
+   _head -> 10
+   _tail -> 40
+   _size  =  4
   /////////////////////// END-TO-DO (6) ////////////////////////////
   #endif
 }

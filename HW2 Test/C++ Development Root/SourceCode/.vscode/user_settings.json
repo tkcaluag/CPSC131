@@ -1,4 +1,56 @@
 {
+  /**********************************************************
+  ** Copy and then rename this file to:
+  **   Linux:    ~/.config/Code/User/settings.json
+  **   WSL:      ~/.vscode-server/data/Machine/settings.json
+  **   Windows:  %APPDATA%\Code\User\settings.json  (e.g. C:\Users\admin\AppData\Roaming\Code\User\settings.json)
+  ** This file adds to or alters the default VSCode settings
+  ***********************************************************/
+
+  /**********************************************************
+  ** User unique values ()
+  ***********************************************************/
+  "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+  "files.hotExit": "off",
+  // "terminal.external.linuxExec": "konsole",  // KDE Linux users should uncomment this line
+
+
+
+
+  /**********************************************************
+  ** Workspace values
+  ** A workspace file in ./.vscode/settings.json, if present,
+  ** overrides these values
+  ***********************************************************/
+  "cSpell.words": [
+    "CPSC",
+    "CSUF",
+    "pseudocode",
+    "Tuffix"
+  ],
+  "cSpell.enableFiletypes": [
+    "shellscript"
+  ],
+  "editor.detectIndentation": false,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "editor.formatOnType": true,
+  "editor.insertSpaces": true,
+  "editor.minimap.enabled": false,
+  "editor.mouseWheelZoom": true,
+  "editor.suggest.showStatusBar": true,
+  "editor.renderIndentGuides": false,
+  "editor.tabSize": 2,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false,
+  "terminal.integrated.copyOnSelection": true,
+  "window.zoomLevel": 2,
+  "window.titleBarStyle": "custom",
+  "workbench.colorTheme": "Visual Studio Dark",
+  "workbench.iconTheme": "vscode-icons",
   "files.associations": {
     "*.disabled": "cpp",
     "*.tcc": "cpp",
@@ -113,11 +165,6 @@
     "valarray": "cpp",
     "variant": "cpp",
     "vector": "cpp",
-    "version": "cpp",
-    "__bit_reference": "cpp",
-    "__config": "cpp",
-    "__locale": "cpp",
-    "__verbose_abort": "cpp"
+    "version": "cpp"
   }
-  /* See User Settings in Linux: ~/.config/Code/User/settings.json, Windows: %APPDATA%\Code\User\settings.json, WSL: ~/.vscode-server/data/Machine/settings.json */
 }
