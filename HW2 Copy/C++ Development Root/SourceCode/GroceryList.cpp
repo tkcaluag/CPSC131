@@ -104,7 +104,6 @@ std::size_t GroceryList::size() const
     /// All the containers are the same size, so pick one and return the size of that.  Since the forward_list has to calculate the
     /// size on demand, stay away from using that one.
 
-  std::cout << "size";
   return _gList_vector.size();
 
   /////////////////////// END-TO-DO (1) ////////////////////////////
@@ -138,7 +137,6 @@ std::size_t GroceryList::find( const GroceryItem & groceryItem ) const
     /// be in the same position in all the containers (array, vector, list, and forward_list) so pick just one of those to search.
     /// The STL provides the find() function that is a perfect fit here, but you may also write your own loop.
 
-  std::cout << "find";
   for( std::size_t i = 0; i < _gList_array_size; i++ )
   {
     if( _gList_array.at( i ) == groceryItem )
@@ -196,7 +194,6 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
     /// Remember, you already have a function that tells you if the to-be-inserted grocery item is already in the list, so use it.
     /// Don't implement it again.
 
-    std::cout << "duplicate";
     if(auto index = find(groceryItem); index != _gList_array_size) return;
 
 
@@ -226,13 +223,17 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       /// For example:  a[8] = a[7];  a[7] = a[6];  a[6] = a[5];  and so on.
       /// std::shift_* will be helpful, or write your own loop.
 
-    // for( auto destination = _gList_array_size - 1; destination != offsetFromTop; --destination){
-    //   _gList_array[destination] = std::move( _gList_array[destination - 1] );
-    // }
 
-    // _gList_array[offsetFromTop] = groceryItem;
+    if(_gList_array_size >= _gList_array.size()) throw GroceryList::CapacityExceeded_Ex( "Capacity Exceeded" );
 
-    // ++_gList_array_size;
+    auto pos = _gList_array.begin() + offsetFromTop;
+
+    std::shift_right( pos, _gList_array.end(), 1 );
+
+    *pos = groceryItem;
+
+    ++_gList_array_size;
+
 
     /////////////////////// END-TO-DO (4) ////////////////////////////
   } // Part 1 - Insert into array
@@ -251,10 +252,10 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       /// Behind the scenes, std::vector::insert() shifts to the right everything at and after the insertion point, just like you
       /// did for the array above.
 
-    // auto position = _gList_vector.begin();
-    // position      = std::next( position, offsetFromTop );
+    auto position = _gList_vector.begin();
+    position      = std::next( position, offsetFromTop );
 
-    // _gList_vector.insert( position, groceryItem );
+    _gList_vector.insert( position, groceryItem );
 
     /////////////////////// END-TO-DO (5) ////////////////////////////
   } // Part 2 - Insert into vector
@@ -269,9 +270,9 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       /// the zero-based offset from the top (the index) to an iterator by advancing _gList_dll.begin() offsetFromTop times.  The
       /// STL has a function called std::next() that does that, or you can write your own loop.
 
-    // auto position = _gList_dll.begin();
-    // position      = std::next( position, offsetFromTop );
-    // _gList_dll.insert( position, groceryItem );
+    auto position = _gList_dll.begin();
+    position      = std::next( position, offsetFromTop );
+    _gList_dll.insert( position, groceryItem );
 
     /////////////////////// END-TO-DO (6) ////////////////////////////
   } // Part 3 - Insert into doubly linked list
@@ -287,9 +288,9 @@ void GroceryList::insert( const GroceryItem & groceryItem, std::size_t offsetFro
       /// advancing _gList_sll.before_begin() offsetFromTop times.  The STL has a function called std::next() that does that, or you
       /// can write your own loop.
 
-    // auto position = _gList_sll.before_begin();
-    // position      = std::next( position, offsetFromTop );
-    // _gList_sll.insert_after( position, groceryItem );
+    auto position = _gList_sll.before_begin();
+    position      = std::next( position, offsetFromTop );
+    _gList_sll.insert_after( position, groceryItem );
 
     /////////////////////// END-TO-DO (7) ////////////////////////////
   } // Part 4 - Insert into singly linked list
@@ -332,12 +333,11 @@ void GroceryList::remove( std::size_t offsetFromTop )
       /// std::shift_* will be helpful, or write your own loop.  Also remember that you must keep track of the number of valid
       /// grocery items in your array, so don't forget to adjust _gList_array_size.
 
-    for( auto current = offsetFromTop + 1; current != _gList_array_size; ++current )
-    {
-      _gList_array[current - 1] = std::move( _gList_array[current] );
-    }
+    auto position = _gList_array.begin() + offsetFromTop;
+    std::shift_left( position, _gList_array.end(), 1 );
 
     --_gList_array_size;
+    _gList_array[_gList_array_size] = GroceryItem{};
 
     /////////////////////// END-TO-DO (8) ////////////////////////////
   } // Part 1 - Remove from array
@@ -393,8 +393,8 @@ void GroceryList::remove( std::size_t offsetFromTop )
       /// advancing _gList_sll.before_begin() offsetFromTop times.  The STL has a function called std::next() that does that, or you
       /// can write your own loop.
 
-    auto position = _gList_sll.begin();
-    position      = std::next( position, offsetFromTop-1 );
+    auto position = _gList_sll.before_begin();
+    position      = std::next( position, offsetFromTop );
 
     _gList_sll.erase_after( position );
 
@@ -437,7 +437,7 @@ GroceryList & GroceryList::operator+=( const std::initializer_list<GroceryItem> 
     /// (array, vector, list, and forward_list) of this grocery list, and that you already have a function that does that.
 
   for( auto item : rhs ){
-    insert( item, _gList_array_size - 1 );
+    insert( item, _gList_array_size );
   }
 
   /////////////////////// END-TO-DO (13) ////////////////////////////
@@ -460,7 +460,7 @@ GroceryList & GroceryList::operator+=( const GroceryList & rhs )
     /// already have a function that does that.
 
   for( auto i : rhs._gList_vector){
-    insert( i, _gList_array_size - 1 );
+    insert( i, _gList_vector.size() );
   }
 
   /////////////////////// END-TO-DO (14) ////////////////////////////
@@ -654,12 +654,10 @@ std::istream & operator>>( std::istream & stream, GroceryList & groceryList )
 
   GroceryItem workingItem;
 
-  if( stream >> std::ws >> workingItem)
+  while( stream >> std::ws >> workingItem)
   {
-    groceryList.insert( workingItem, groceryList._gList_array_size-1 );
+    groceryList.insert( std::move(workingItem), groceryList._gList_array_size );
   }
-  else
-    stream.setstate( std::ios::failbit );
 
   /////////////////////// END-TO-DO (18) ////////////////////////////
 
