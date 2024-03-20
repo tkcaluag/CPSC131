@@ -1,0 +1,105 @@
+My Grocery List
+    0:  "", "", "eggs", 0
+    1:  "", "", "milk", 0
+    2:  "", "", "hot dogs", 0
+    3:  "", "", "bread", 0
+
+My roommate's Grocery List
+    0:  "", "Ruffles", "potato chips", 0
+    1:  "", "Frito Lays", "potato chips", 0
+    2:  "", "Bud Lite", "beer", 0
+    3:  "", "", "eggs", 0
+    4:  "", "", "pretzels", 0
+
+Combined Grocery Lists
+    0:  "", "", "eggs", 0
+    1:  "", "", "milk", 0
+    2:  "", "", "hot dogs", 0
+    3:  "", "Lakes 'Ole", "butter", 0
+    4:  "", "", "bread", 0
+    5:  "", "", "bananas", 0
+    6:  "", "", "apples", 0
+    7:  "", "Ruffles", "potato chips", 0
+    8:  "", "Frito Lays", "potato chips", 0
+    9:  "", "", "pretzels", 0
+
+
+Expected results:
+    0:  "", "", "eggs", 0
+    1:  "", "", "milk", 0
+    2:  "", "", "hot dogs", 0
+    3:  "", "Lakes 'Ole", "butter", 0
+    4:  "", "", "bread", 0
+    5:  "", "", "bananas", 0
+    6:  "", "", "apples", 0
+    7:  "", "Ruffles", "potato chips", 0
+    8:  "", "Frito Lays", "potato chips", 0
+    9:  "", "", "pretzels", 0
+
+
+Actual results:  
+    0:  "", "", "eggs", 0
+    1:  "", "", "milk", 0
+    2:  "", "", "hot dogs", 0
+    3:  "", "Lakes 'Ole", "butter", 0
+    4:  "", "", "bread", 0
+    5:  "", "", "bananas", 0
+    6:  "", "", "apples", 0
+    7:  "", "Ruffles", "potato chips", 0
+    8:  "", "Frito Lays", "potato chips", 0
+    9:  "", "", "pretzels", 0
+
+
+Test results:    PASS
+
+My PC Parts List:
+    0:  "", "Intel", "CPU", 0
+    1:  "", "MSI", "Motherboard", 0
+    2:  "", "NVIDIA", "GPU", 0
+    3:  "", "Windows", "OS", 0
+
+Accessories List:
+    0:  "", "Logitech", "Mouse", 0
+    1:  "", "Razer", "Keyboard", 0
+    2:  "", "SteelSeries", "Headset", 0
+
+Updated PC Parts List:
+    0:  "", "AMD", "CPU", 0
+    1:  "", "MSI", "Motherboard", 0
+    2:  "", "NVIDIA", "GPU", 0
+    3:  "", "Corsair", "16 GB RAM", 0
+    4:  "", "Windows", "OS", 0
+    5:  "", "Samsung", "SSD", 0
+    6:  "", "Seagate", "HDD", 0
+    7:  "", "Corsair", "Power Supply", 0
+    8:  "", "NZXT", "Case", 0
+
+My Friend's Accessories List:
+    0:  "", "Razer", "Keyboard", 0
+    1:  "", "Logitech", "Mouse", 0
+    2:  "", "", "144hz Monitor", 0
+    3:  "", "", "60hz Monitor", 0
+    4:  "", "", "Mousepad", 0
+    5:  "", "Razer", "Microphone", 0
+
+Combined Accessories List:
+    0:  "", "Logitech", "Mouse", 0
+    1:  "", "Razer", "Keyboard", 0
+    2:  "", "SteelSeries", "Headset", 0
+    3:  "", "", "144hz Monitor", 0
+    4:  "", "", "60hz Monitor", 0
+    5:  "", "", "Mousepad", 0
+    6:  "", "Razer", "Microphone", 0
+
+Which parts list is the "greater" or "lesser"?
+
+My List is Greater:
+    0:  "", "AMD", "CPU", 0
+    1:  "", "MSI", "Motherboard", 0
+    2:  "", "NVIDIA", "GPU", 0
+    3:  "", "Corsair", "16 GB RAM", 0
+    4:  "", "Windows", "OS", 0
+    5:  "", "Samsung", "SSD", 0
+    6:  "", "Seagate", "HDD", 0
+    7:  "", "Corsair", "Power Supply", 0
+    8:  "", "NZXT", "Case", 0
