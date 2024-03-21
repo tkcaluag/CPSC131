@@ -120,7 +120,4 @@ GroceryItemDatabase::GroceryItemDatabase( const std::string & filename )
     return find( ++index, upc );
   }
 
-
-
-
 /////////////////////// END-TO-DO (3) ////////////////////////////

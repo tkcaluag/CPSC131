@@ -139,19 +139,21 @@ namespace
     ///////////////////////// TO-DO (1) //////////////////////////////
       /// Implement the algorithm above.
 
-      if( quantity == 1) {
+      if( quantity == 1 ) {
         working_cart.push( std::move( broken_cart.top() ) );
+        broken_cart.pop();
         trace( broken_cart, working_cart, spare_cart );
       }
       else
       {
         carefully_move_grocery_items( quantity - 1, broken_cart, spare_cart, working_cart );
-        working_cart.push( std::move( broken_cart.top() ) );
-        trace( broken_cart, working_cart, spare_cart );
-        carefully_move_grocery_items( quantity - 1, broken_cart, spare_cart, working_cart );
-      }
 
-      return;
+        working_cart.push( std::move( broken_cart.top() ) );
+        broken_cart.pop();
+        trace( broken_cart, working_cart, spare_cart );
+
+        carefully_move_grocery_items( quantity - 1, spare_cart, working_cart, broken_cart );
+      }
 
     /////////////////////// END-TO-DO (1) ////////////////////////////
   }
@@ -168,7 +170,12 @@ namespace
       /// moving grocery items recursively.  Call the above trace function just before calling carefully_move_grocery_items to get a
       /// starting point reference in the movement report.
 
+    if( from.empty() ) return;
+
     std::stack<GroceryItem> spare;
+
+    trace( from, to, spare );
+
     carefully_move_grocery_items( from.size(), from, to, spare);
 
     /////////////////////// END-TO-DO (2) ////////////////////////////
@@ -210,12 +217,12 @@ int main( int argc, char * argv[] )
 
     ///////////////////////// TO-DO (4) //////////////////////////////
 
-    myCart.push( { "00688267039317", "eggs", "any" } );
-    myCart.push( { "00835841005255", "bread", "any" } );
-    myCart.push( { "09073649000493", "apple pie", "any" } );
-    myCart.push( { "00025317533003", "hotdogs", "Applegate Farms" } );
-    myCart.push( { "00038000291210", "rice krispies", "Kellogg's" } );
-    myCart.push( { "00075457129000", "milk", "any" } );
+    myCart.push( { "eggs", "any", "00688267039317" } );
+    myCart.push( { "bread", "any", "00835841005255" } );
+    myCart.push( { "apple pie", "any", "09073649000493" } );
+    myCart.push( { "hotdogs", "Applegate Farms", "00025317533003" } );
+    myCart.push( { "rice krispies", "Kellogg's", "00038000291210" } );
+    myCart.push( { "milk", "any", "00075457129000" } );
 
 
     /////////////////////// END-TO-DO (4) ////////////////////////////
@@ -266,21 +273,27 @@ int main( int argc, char * argv[] )
       /// Otherwise, print a message on the receipt that a description and price for the grocery item wasn't found and there will be
       /// no charge.
 
-    GroceryItem workingItem;
+    GroceryItem * workingItem;
 
     while( !checkoutCounter.empty() ){
+      workingItem = worldWideDatabase.find( checkoutCounter.front().upcCode() );
 
-      workingItem = checkoutCounter.front();
-
-      if( worldWideDatabase.find(workingItem.upcCode()) == nullptr ){
-        std::cout << "\"" << workingItem.upcCode() << "\" "
-                  << "(" << workingItem.productName() << ") "
+      if( workingItem == nullptr ){
+        std::cout << "\"" << checkoutCounter.front().upcCode() << "\" "
+                  << "(" << checkoutCounter.front().productName() << ") "
                   << "not found, so today is your lucky day - You get it free! Hooray!" << '\n';
-      } else {
-        std::cout << workingItem << '\n';
-        amountDue += workingItem.price();
+        checkoutCounter.pop();
+      }
+      else
+      {
+        std::cout << *workingItem << '\n';
+        amountDue += workingItem->price();
+        checkoutCounter.pop();
       }
     }
+
+    std::cout << "-------------------------" << '\n'
+              << "Total $" << amountDue << '\n';
 
     /////////////////////// END-TO-DO (7) ////////////////////////////
 
