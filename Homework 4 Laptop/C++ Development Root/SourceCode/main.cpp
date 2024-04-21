@@ -42,7 +42,7 @@ int main()
       /// store's inventory, and returns a collection of groceries sold.
       ///
 
-    store.ringUpCustomers( carts );
+    auto todaysSales = store.ringUpCustomers( carts );
 
     /////////////////////// END-TO-DO (3) ////////////////////////////
 
@@ -65,8 +65,7 @@ int main()
       /// items to fall below your re-order threshold, order more by using your store's reorderItems function passing the
       /// collection of items sold.
 
-    store.reorderItems( carts );
-
+    store.reorderItems( todaysSales );
 
     /////////////////////// END-TO-DO (5) ////////////////////////////
   }
